@@ -66,9 +66,9 @@ var webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     })*/
     // split vendor js into its own file
-    new webpack.optimize.CommonsChunkPlugin({
+    /*new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: 2,/*function (module, count) {
+      minChunks: function (module, count) {
         // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&
@@ -77,9 +77,9 @@ var webpackConfig = merge(baseWebpackConfig, {
             path.join(__dirname, '../node_modules')
           ) === 0
         )
-      }*/
-      chunks:['modules/index','modules/Login']
-    }),
+      }
+      chunks:['modules/index','modules/Login','modules/Channel']
+    }),*/
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({

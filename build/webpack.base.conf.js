@@ -3,7 +3,7 @@ const merge = require('webpack-merge');
 var autoprefixer = require('autoprefixer');
 var utils = require('./utils')
 var config = require('../config')
-
+var webpack = require('webpack')
 const entries = require('./entries')
 
 const projectRoot = path.resolve(__dirname, '../');
@@ -28,6 +28,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
+    modules:[path.join(__dirname, '../node_modules')],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
@@ -36,7 +37,6 @@ module.exports = {
       'components': path.resolve(projectSrc, 'components')
     }
   },
-
   module: {
     rules: [
       {
@@ -67,5 +67,13 @@ module.exports = {
       }
     ]
   },
+  plugins:[
+    //提取公共模块插件
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: 2,//设置有两个人使用公共库即可
+      chunks:Object.keys(entries)
+    }),
+  ]
 
 }

@@ -52,7 +52,9 @@ let pages = ((globalPath)=>{
     pageName;
 
   glob.sync(globalPath).forEach((pagePath)=>{
+
     var tmp='';
+
     var basename = path.basename(pagePath, path.extname(pagePath));
     tmp = pagePath.split('/').splice(-3);
 
