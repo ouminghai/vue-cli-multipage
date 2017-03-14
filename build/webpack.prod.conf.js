@@ -53,6 +53,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
+    //注意webpack2.2  OccurrenceOrderPlugin 改名字了
     new webpack.optimize.OccurrenceOrderPlugin(),
 
     new webpack.optimize.CommonsChunkPlugin({
@@ -115,7 +116,7 @@ let pages = ((globalPath)=>{
 
 for (let pagePath in pages) {
   let conf = {
-    filename: pagePath + '.html',
+    filename: pagePath + '.tpl',
     template: pages[pagePath]['path'],
     inject: true,// js插入位置
     minify: {
