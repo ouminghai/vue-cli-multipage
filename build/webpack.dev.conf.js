@@ -35,12 +35,6 @@ let devConfig  = merge(baseWebpackConfig, {
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest']
     }),
-    // https://github.com/ampedandwired/html-webpack-plugin
-    /*new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    }),*/
     new FriendlyErrorsPlugin()
   ]
 });
@@ -52,9 +46,7 @@ let pages = ((globalPath)=>{
     pageName;
 
   glob.sync(globalPath).forEach((pagePath)=>{
-
     var tmp='';
-
     var basename = path.basename(pagePath, path.extname(pagePath));
     tmp = pagePath.split('/').splice(-3);
 

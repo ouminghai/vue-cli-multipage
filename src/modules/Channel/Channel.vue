@@ -1,6 +1,6 @@
 <template>
 
-  <i-select :model.sync="model1" style="width:200px">
+  <i-select :model.sync="model1" class="kk" style="width:200px">
     <i-option v-for="item in cityList" :value="item.value">{{ item.label }}</i-option>
   </i-select>
 
@@ -41,10 +41,8 @@
     }
   }
 </script>
-<style>
-
-  .kk-a{
-    text-decoration: dotted;
-  }
+<style lang="sass" scoped>
+.kk
+  transform: rotate(7deg);
 
 </style>

@@ -114,7 +114,7 @@ let pages = ((globalPath)=>{
 
 for (let pagePath in pages) {
   let conf = {
-    filename: pagePath + '.tpl',
+    filename: pagePath + '.html',
     template: pages[pagePath]['path'],
     inject: true,// js插入位置
     minify: {
