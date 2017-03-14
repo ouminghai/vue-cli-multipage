@@ -153,7 +153,7 @@ for (let pagePath in pages) {
       // more options:
       // https://github.com/kangax/html-minifier#options-quick-reference
     },
-    chunks: [pagePath,'vendor','manifest'],// 每个html引用的js模块
+    chunks: [pages[pagePath]['chunk'],'vendor','manifest'],// 每个html引用的js模块
     // necessary to consistently work with multiple chunks via CommonsChunkPlugin
     chunksSortMode: 'dependency'
   };
