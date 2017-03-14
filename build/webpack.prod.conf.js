@@ -1,4 +1,5 @@
 var path = require('path')
+const glob = require('glob');
 var utils = require('./utils')
 var webpack = require('webpack')
 var config = require('../config')
@@ -10,6 +11,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 var env = config.build.env
+
+
+const projectSrc = path.resolve(__dirname,'../src');
+const projectJs = path.resolve(__dirname,'../src/modules');
+const globalPath = projectJs+'/**/*.js';
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -45,7 +51,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
+    /*new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
       inject: true,
@@ -58,7 +64,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
-    }),
+    })*/
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -112,5 +118,52 @@ if (config.build.bundleAnalyzerReport) {
   var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
+
+
+
+let pages = ((globalPath)=>{
+  let htmlFiles = {},
+    pageName;
+
+  glob.sync(globalPath).forEach((pagePath)=>{
+    let tmp='';
+    let basename = path.basename(pagePath, path.extname(pagePath));
+
+    tmp = pagePath.split('/').splice(-3);
+
+    pageName =  tmp.splice(0, 1) + '/' + basename; // 正确输出js和html的路径
+    htmlFiles[pageName] = {};
+    htmlFiles[pageName]['chunk'] = basename;
+    htmlFiles[pageName]['path'] = pagePath;
+  });
+  return htmlFiles;
+
+})(projectJs+'/**/*.html');
+
+for (let pagePath in pages) {
+  let conf = {
+    filename: pagePath + '.html',
+    template: pages[pagePath]['path'],
+    inject: true,
+    minify: {
+      removeComments: true,
+      collapseWhitespace: true,
+      removeAttributeQuotes: true
+      // more options:
+      // https://github.com/kangax/html-minifier#options-quick-reference
+    },
+    chunks: [pages[pagePath]['chunk'],'vendor','manifest'],
+    // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    chunksSortMode: 'dependency'
+  };
+
+  webpackConfig.plugins.push(new HtmlWebpackPlugin(conf));
+}
+
+if (config.build.bundleAnalyzerReport) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin());
+}
+
 
 module.exports = webpackConfig
