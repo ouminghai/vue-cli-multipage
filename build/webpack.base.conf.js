@@ -1,6 +1,6 @@
 var path = require('path')
 const merge = require('webpack-merge');
-
+var autoprefixer = require('autoprefixer');
 var utils = require('./utils')
 var config = require('../config')
 
@@ -16,6 +16,9 @@ let prodEnv = env === 'production';
 let cssSourceMapDev = (developEnv && config.dev.cssSourceMap);
 let cssSourceMapProd = ( prodEnv&& config.build.productionSourceMap);
 let useCssSourceMap = cssSourceMapDev || cssSourceMapProd;
+
+
+var autoprefixerConf = autoprefixer({ browsers: ['last 2 versions','Android >= 4.0','iOS >= 6'] });
 
 
 
@@ -48,6 +51,9 @@ module.exports = {
       'components': path.resolve(projectSrc, 'components')
     }
   },
+  /*resolveLoader: {//错误处理
+    fallback: [path.join(__dirname, '../node_modules')]
+  },*/
   module: {
     rules: [
       {

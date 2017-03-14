@@ -68,7 +68,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: function (module, count) {
+      minChunks: 2,/*function (module, count) {
         // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&
@@ -77,7 +77,8 @@ var webpackConfig = merge(baseWebpackConfig, {
             path.join(__dirname, '../node_modules')
           ) === 0
         )
-      }
+      }*/
+      chunks:['index','login']
     }),
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
@@ -144,7 +145,7 @@ for (let pagePath in pages) {
   let conf = {
     filename: pagePath + '.html',
     template: pages[pagePath]['path'],
-    inject: true,
+    inject: true,// js插入位置
     minify: {
       removeComments: true,
       collapseWhitespace: true,
@@ -152,7 +153,7 @@ for (let pagePath in pages) {
       // more options:
       // https://github.com/kangax/html-minifier#options-quick-reference
     },
-    chunks: [pages[pagePath]['chunk'],'vendor','manifest'],
+    chunks: [pagePath,'vendor','manifest'],// 每个html引用的js模块
     // necessary to consistently work with multiple chunks via CommonsChunkPlugin
     chunksSortMode: 'dependency'
   };

@@ -61,7 +61,29 @@ exports.styleLoaders = function (options) {
   var output = []
   var loaders = exports.cssLoaders(options)
   for (var extension in loaders) {
+
     var loader = loaders[extension]
+
+
+    let postCssLoader = {
+      loader:'postcss-loader',
+      options:{
+        plugins:function(){
+          return [
+            require('autoprefixer')({
+              browsers: ['last 2 versions']
+            })
+          ];
+        }
+      }
+    };
+    if(loader.length>1){
+      loader.splice(loader.length-1,0,postCssLoader);
+    }else{
+      loader.push(postCssLoader);
+    }
+
+
     output.push({
       test: new RegExp('\\.' + extension + '$'),
       use: loader
