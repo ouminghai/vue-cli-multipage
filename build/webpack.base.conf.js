@@ -74,6 +74,11 @@ module.exports = {
       minChunks: 2,//设置有两个人使用公共库即可
       chunks:Object.keys(entries)
     }),
-  ]
+  ],
+  //不属于node module 的部分
+
+  externals:{
+      'jquery' : 'jQuery'
+  }
 
 }

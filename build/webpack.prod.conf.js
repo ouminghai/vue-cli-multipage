@@ -11,8 +11,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 
-
-
 var env = config.build.env
 
 const projectSrc = path.resolve(__dirname,'../src');

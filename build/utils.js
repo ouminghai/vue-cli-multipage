@@ -12,47 +12,60 @@ exports.assetsPath = function (_path) {
 exports.cssLoaders = function (options) {
   options = options || {}
 
-  var cssLoader = {
-    loader: 'css-loader',
-    options: {
-      minimize: process.env.NODE_ENV === 'production',
-      sourceMap: options.sourceMap
-    }
-  }
-
   // generate loader string to be used with extract text plugin
-  function generateLoaders (loader, loaderOptions) {
-    var loaders = [cssLoader]
-    if (loader) {
-      loaders.push({
-        loader: loader + '-loader',
-        options: Object.assign({}, loaderOptions, {
-          sourceMap: options.sourceMap
-        })
-      })
-    }
+  function generateLoaders (loaders) {
+
+    let sourceLoader = loaders.map(function (loader) {
+      let extraParamChar;
+      //如果匹配有问号
+      if(/\?/.test(loader)){
+        loader = loader.replace(/\?/, '-loader?');
+        extraParamChar = '&';
+      }else{
+        loader = loader + '-loader';
+        extraParamChar = '?';
+
+        // 解决npm run dev 和 npm run build 编译后前缀不一样的问题
+        if (loader === 'css-loader') {
+          extraParamChar = '?-autoprefixer&'
+        }
+
+      }
+      return loader + (options.sourceMap ? extraParamChar + 'sourceMap' : '');
+    }).join('!');
+
 
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {
+      sourceLoader = sourceLoader.split('!');
+      sourceLoader.shift();
+      sourceLoader.unshift({
+        loader:'css-loader',
+        options: {
+          minimize: true
+        }
+      });
       return ExtractTextPlugin.extract({
-        use: loaders,
+        use: sourceLoader,
         fallback: 'vue-style-loader'
-      })
+      });
     } else {
-      return ['vue-style-loader'].concat(loaders)
+      //开发模式下
+      return ['vue-style-loader', sourceLoader].join('!');
     }
+
   }
 
   // http://vuejs.github.io/vue-loader/en/configurations/extract-css.html
   return {
-    css: generateLoaders(),
-    postcss: generateLoaders(),
-    less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
-    stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus')
+    css: generateLoaders(['css']),
+    postcss: generateLoaders(['css']),
+    less: generateLoaders(['css', 'less']),
+    sass: generateLoaders(['css', 'sass?indentedSyntax']),
+    scss: generateLoaders(['css', 'sass']),
+    stylus: generateLoaders(['css', 'stylus']),
+    styl: generateLoaders(['css', 'stylus'])
   }
 }
 
@@ -60,14 +73,41 @@ exports.cssLoaders = function (options) {
 exports.styleLoaders = function (options) {
   var output = []
   var loaders = exports.cssLoaders(options)
-  for (var extension in loaders) {
 
-    var loader = loaders[extension]
+  for (let extension in loaders) {
+    let loader;
+
+    if(!options.extract) {
+      loader = loaders[extension].split('!');
+    }else{
+      loader = loaders[extension];
+    }
+    let postCssLoader = {
+      loader:'postcss-loader',
+      options:{
+        plugins:function(){
+          return [
+            require('autoprefixer')({
+              browsers: ['last 2 versions']
+            })
+          ];
+        }
+      }
+    };
+    if(loader.length>1){
+      loader.splice(loader.length,0,postCssLoader);
+    }else{
+      loader.push(postCssLoader);
+    }
+
+    console.log("config:",loaders[extension]);
 
     output.push({
       test: new RegExp('\\.' + extension + '$'),
       use: loader
-    })
+    });
   }
+
   return output
+
 }
