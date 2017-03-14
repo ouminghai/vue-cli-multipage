@@ -4,6 +4,7 @@ const glob = require('glob');
 const projectJs = path.resolve(__dirname,'../src/modules/');
 const globalPath = projectJs+'/**/*.js';
 
+//设置输出的js文件
 let entries = ((globalPath)=>{
 
   let entries = {},
