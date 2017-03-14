@@ -62,7 +62,7 @@ let pages = ((globalPath)=>{
     htmlFiles[pageName]['path'] = pagePath;
   });
   return htmlFiles;
-})(globalPath+'/**/*.html');
+})(projectJs+'/**/*.html');
 
 for (let pagePath in pages) {
   let conf = {

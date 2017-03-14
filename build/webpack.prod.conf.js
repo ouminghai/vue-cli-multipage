@@ -78,7 +78,7 @@ var webpackConfig = merge(baseWebpackConfig, {
           ) === 0
         )
       }*/
-      chunks:['index','Login']
+      chunks:['modules/index','modules/Login']
     }),
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
@@ -129,7 +129,6 @@ let pages = ((globalPath)=>{
   glob.sync(globalPath).forEach((pagePath)=>{
     let tmp='';
     let basename = path.basename(pagePath, path.extname(pagePath));
-
     tmp = pagePath.split('/').splice(-3);
 
     pageName =  tmp.splice(0, 1) + '/' + basename; // 正确输出js和html的路径
@@ -153,7 +152,7 @@ for (let pagePath in pages) {
       // more options:
       // https://github.com/kangax/html-minifier#options-quick-reference
     },
-    chunks: [pages[pagePath]['chunk'],'vendor','manifest'],// 每个html引用的js模块
+    chunks: [pagePath,'vendor','manifest'],// 每个html引用的js模块
     // necessary to consistently work with multiple chunks via CommonsChunkPlugin
     chunksSortMode: 'dependency'
   };

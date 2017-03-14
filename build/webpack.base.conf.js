@@ -9,14 +9,6 @@ const entries = require('./entries')
 const projectRoot = path.resolve(__dirname, '../');
 const projectSrc = path.resolve(projectRoot,'./src');
 
-let env = process.env.NODE_ENV;
-
-let developEnv = env === 'development';
-let prodEnv = env === 'production';
-let cssSourceMapDev = (developEnv && config.dev.cssSourceMap);
-let cssSourceMapProd = ( prodEnv&& config.build.productionSourceMap);
-let useCssSourceMap = cssSourceMapDev || cssSourceMapProd;
-
 var vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
