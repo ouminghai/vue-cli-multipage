@@ -21,4 +21,7 @@ let entries = ((globalPath)=>{
 
 })(globalPath);
 
+var libs=path.resolve(__dirname, '../static/js/lib')
+entries['flexible'] = path.resolve(__dirname, libs+'/flexible/flexible.js')
+
 module.exports = entries;

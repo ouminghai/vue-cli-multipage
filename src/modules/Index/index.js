@@ -1,10 +1,7 @@
-import Vue from 'vue';
+
+import { Vue, $, Common } from 'js/base'
 import Index from './Index.vue'
 
-
-import iView from 'iview';
-import 'iview/dist/styles/iview.css';    //
-Vue.use(iView);
 
 /* eslint-disable no-new */
 new Vue({

@@ -95,7 +95,7 @@ exports.styleLoaders = function (options) {
       }
     };
     if(loader.length>1){
-      loader.splice(-1,0,postCssLoader);
+      loader.splice(loader.length,0,postCssLoader);
     }else{
       loader.push(postCssLoader);
     }

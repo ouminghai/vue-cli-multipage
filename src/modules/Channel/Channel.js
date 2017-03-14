@@ -1,13 +1,8 @@
-import Vue from 'vue';
+
+import { Vue, $, Common } from 'js/base'
+
 import Channel from './Channel.vue'
 
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
-import iView from 'iview';
-import 'iview/dist/styles/iview.css';    //
-
-Vue.use(iView);
-Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({

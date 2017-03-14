@@ -34,7 +34,11 @@ module.exports = {
       '@': resolve('src'),
       'common': path.resolve(projectSrc, 'common'),
       'modules':  path.resolve(projectSrc, 'modules'),
-      'components': path.resolve(projectSrc, 'components')
+      'components': path.resolve(projectSrc, 'components'),
+      'src': path.resolve(__dirname, '../src'),
+      'assets': path.resolve(__dirname, '../src/assets'),
+      'images': path.resolve(__dirname, '../src/assets/images'),
+      'js': path.resolve(__dirname, '../src/assets/js'),
     }
   },
   module: {

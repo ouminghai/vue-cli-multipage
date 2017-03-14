@@ -1,9 +1,9 @@
-import Vue from 'vue';
+
+
+import { Vue, $, Common } from 'js/base'
 import Login from './Login.vue'
 
 
-import iView from 'iview';
-import 'iview/dist/styles/iview.css';    //
 Vue.use(iView);
 /* eslint-disable no-new */
 new Vue({
