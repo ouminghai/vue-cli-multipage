@@ -41,8 +41,9 @@
     }
   }
 </script>
-<style lang="sass" scoped>
-.kk
+<style lang="scss" scoped>
+.kk {
   transform: rotate(7deg);
+}
 
 </style>
