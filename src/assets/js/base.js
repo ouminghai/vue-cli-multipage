@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import iView from 'iview';
-import Common from './Common'
+import Vue from 'vue'
 import $ from 'jquery'
-import 'iview/dist/styles/iview.css'    //
+import Common from './Common'
+import iView from 'iview' ;
+require('iview/dist/styles/iview.css')
 Vue.use(iView);
 
-module.exports = {
-  Vue,$,Common
+export {
+  Vue , $ , Common
 }

@@ -1,5 +1,5 @@
 
-import { Vue, $, Common } from 'js/base'
+import { Vue , $ ,Common } from 'js/base'
 import Index from './Index.vue'
 
 
