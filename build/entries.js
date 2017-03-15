@@ -1,7 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 
-const projectJs = path.resolve(__dirname,'../src/modules/');
+const projectJs = path.resolve(__dirname,'../src/views/');
 const globalPath = projectJs+'/**/*.js';
 
 //设置输出的js文件
