@@ -23,8 +23,9 @@ let entries = ((globalPath)=>{
 
 //直接引入外部js
 var libs=path.resolve(__dirname, '../static/js/lib')
-/*
+
 entries['flexible'] = path.resolve(__dirname, libs+'/flexible/flexible.js')
+/*
 entries['jquery'] = path.resolve(__dirname, libs+'/jquery/jquery.js')
 */
 

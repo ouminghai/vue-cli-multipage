@@ -9,7 +9,7 @@ new Vue({
   data() {
     return {
       message: 'Hello user center!'
-    };
+    }
   },
   components:{
     Index

@@ -67,7 +67,7 @@ for (let pagePath in pages) {
     // 自动将引用插入html
     inject: true,
     // 每个html引用的js模块，也可以在这里加上vendor等公用模块
-    chunks: ['flexible','vendor','manifest',pagePath]
+    chunks: ['vendor','manifest',pagePath,'flexible']
   };
   // https://github.com/ampedandwired/html-webpack-plugin
   /*入口文件对应html文件（配置多个，一个页面对应一个入口，通过chunks对应）*/

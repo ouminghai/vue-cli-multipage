@@ -1,6 +1,5 @@
 
 import { Vue, $, Common } from 'js/base'
-
 import Channel from './Channel.vue'
 
 
@@ -10,10 +9,9 @@ new Vue({
   data() {
     return {
       message: 'Hello user center!'
-    };
+    }
   },
   components:{
     Channel
   }
-
 });
