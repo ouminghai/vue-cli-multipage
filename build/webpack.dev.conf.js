@@ -11,7 +11,7 @@ var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 
 const projectSrc = path.resolve(__dirname,'../src');
-const projectJs = path.resolve(__dirname,'../src/modules');
+const projectJs = path.resolve(__dirname,'../src/views');
 const globalPath = projectJs+'/**/*.js';
 
 // add hot-reload related code to entry chunks

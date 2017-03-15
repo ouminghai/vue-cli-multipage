@@ -14,7 +14,7 @@ var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var env = config.build.env
 
 const projectSrc = path.resolve(__dirname,'../src');
-const projectJs = path.resolve(__dirname,'../src/modules');
+const projectJs = path.resolve(__dirname,'../src/views');
 const globalPath = projectJs+'/**/*.js';
 
 var webpackConfig = merge(baseWebpackConfig, {
