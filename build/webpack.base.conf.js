@@ -73,11 +73,36 @@ module.exports = {
   },
   plugins:[
     //提取公共模块插件
-    new webpack.optimize.CommonsChunkPlugin({
+    /*new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: 2,//设置有两个人使用公共库即可
       chunks:Object.keys(entries)
+    }),*/
+    //公共模块直接放在lib里
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',// 为公共模块起一个名称
+      minChunks: function (module, count) {
+        // any required modules inside node_modules are extracted to vendor
+        // 提取全局依赖的库（主要是base.js中引入的vue, jquery等插件生成放到vuedor.js那里）
+        var jsReg = /\.js$/.test(module.resource) &&
+          module.resource.indexOf(
+            path.join(__dirname, '../node_modules')
+          ) === 0;
+
+
+        // 公共UI库提提取
+        // todo 这边可进行更精确的匹配
+        // 提取的样式文件 vendor.[contenthash].css
+        // var bootstrapUIReg = /bootstrap\.scss$/.test(module.resource);
+
+
+        return (
+          // module.resource && (jsReg || bootstrapUIReg)
+          module.resource && jsReg
+        )
+      }
     }),
+
   ],
   //不属于node module 的部分
 

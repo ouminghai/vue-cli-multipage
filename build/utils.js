@@ -100,8 +100,6 @@ exports.styleLoaders = function (options) {
       loader.push(postCssLoader);
     }
 
-    console.log("config:",loaders[extension]);
-
     output.push({
       test: new RegExp('\\.' + extension + '$'),
       use: loader
