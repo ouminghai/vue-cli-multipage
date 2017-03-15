@@ -94,11 +94,11 @@ module.exports = {
         // todo 这边可进行更精确的匹配
         // 提取的样式文件 vendor.[contenthash].css
         // var bootstrapUIReg = /bootstrap\.scss$/.test(module.resource);
-
+        var iview = /iview\.css$/.test(module.resource)
 
         return (
           // module.resource && (jsReg || bootstrapUIReg)
-          module.resource && jsReg
+          module.resource && jsReg || iview
         )
       }
     }),
