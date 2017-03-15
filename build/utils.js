@@ -94,11 +94,23 @@ exports.styleLoaders = function (options) {
         }
       }
     };
-    if(loader.length>1){
-      loader.splice(loader.length,0,postCssLoader);
-    }else{
-      loader.push(postCssLoader);
+
+    console.log(loader);
+    if(options.extract) {
+      if (loader.length > 3) {
+        loader.splice(loader.length - 1, 0, postCssLoader);
+      } else {
+        loader.splice(loader.length, 0, postCssLoader);
+      }
+    } else {
+      if (loader.length > 2) {
+        loader.splice(loader.length - 1, 0, postCssLoader);
+      } else {
+        loader.splice(loader.length, 0, postCssLoader);
+      }
     }
+
+
 
     output.push({
       test: new RegExp('\\.' + extension + '$'),
